@@ -1,0 +1,8 @@
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+ENCODER_ENABLE = yes
+VIAL_ENCODERS_ENABLE = yes
+LTO_ENABLE = yes
+RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
+QMK_SETTINGS = no
+VIAL_INSECURE = yes
