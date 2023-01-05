@@ -1,14 +1,8 @@
+// Copyright 2022 Cable Car Designs (@westfoxtrot)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x21FF
-#define PRODUCT_ID      0xAA99
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    cablecardesigns
-#define PRODUCT         cypher
-#define DESCRIPTION     QMK Firmware for rev6 Cypher PCB
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -16,7 +10,6 @@
 
 #define MATRIX_ROW_PINS { B0, F1, F5, F6, F7, D1, F4, D4, C6, C7 }
 #define MATRIX_COL_PINS { D6, D7, B4, B5, B6, B7, B3, B2, B1, F0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
@@ -32,20 +25,24 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-#define GRAVE_ESC_CTRL_OVERRIDE
-
 #define BACKLIGHT_PIN D0
 
-#define RGB_DI_PIN E6
+#define RGB_DI_PIN D5
 #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 10
+   #define RGBLED_NUM 3
    #define RGBLIGHT_HUE_STEP 12
    #define RGBLIGHT_SAT_STEP 25
    #define RGBLIGHT_VAL_STEP 12
    #define RGBLIGHT_LIMIT_VAL 255
    #define RGBLIGHT_SLEEP
-   #define RGBLIGHT_ANIMATIONS
+   #define RGBLIGHT_EFFECT_BREATHING
+   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   #define RGBLIGHT_EFFECT_SNAKE
+   #define RGBLIGHT_EFFECT_KNIGHT
+   #define RGBLIGHT_EFFECT_CHRISTMAS
+   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   #define RGBLIGHT_EFFECT_RGB_TEST
+   #define RGBLIGHT_EFFECT_ALTERNATING
+   #define RGBLIGHT_EFFECT_TWINKLE
 #endif
