@@ -1,7 +1,11 @@
 {
     "keyboard_name": "Cypher Rev6",
-    "width": 19.5,
-    "height": 5,
+    "manufacturer": "cablecardesigns",
+    "usb": {
+      "vid": "0x41FF",
+      "pid": "0xAA99",
+      "device_version": "0.0.2"
+    },
     "layouts": {
       "LAYOUT_all": {
         "layout": [
