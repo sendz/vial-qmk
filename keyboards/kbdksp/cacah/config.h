@@ -52,4 +52,4 @@
 /* encoder support */
 #define ENCODERS_PAD_A { GP16 } // 4 + 4
 #define ENCODERS_PAD_B { GP17 } // 4 + 4
-#define ENCODER_RESOLUTION 2
+#define ENCODER_RESOLUTION 4

@@ -47,17 +47,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (!clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return false;
-}
-
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =   { ENCODER_CCW_CW(KC_VOLU, KC_VOLD)           },
+    [1] =   { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)           },
+    [2] =   { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)           },
+    [3] =   { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)          },
+    //                  Encoder 1                                     Encoder 2
+};
 #endif
