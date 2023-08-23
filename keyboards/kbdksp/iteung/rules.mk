@@ -1,0 +1,14 @@
+
+MCU = RP2040
+BOARD = GENERIC_RP_RP2040
+# Bootloader selection
+BOOTLOADER = rp2040
+
+SPLIT_KEYBOARD = yes
+ENCODER_ENABLE = yes
+SERIAL_DRIVER = vendor
+EXTRAKEY_ENABLE = yes    # Audio control and System control
+MOUSEKEY_ENABLE = yes
+
+OLED_ENABLE = yes
+# OLED_DRIVER = SSD1306
