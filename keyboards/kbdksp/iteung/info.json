@@ -3,10 +3,33 @@
   "manufacturer": "KBDKSP",
   "url": "tokopedia.com/kbdksp",
   "maintainer": "Sendy <sendzation@gmail.com>",
+  "processor": "RP2040",
+  "bootloader": "rp2040",
   "usb": {
       "vid": "0x7370",
       "pid": "0x0287",
       "device_version": "0.0.1"
+  },
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "rows": ["GP29", "GP28", "GP15", "GP26", "GP27"],
+    "cols": ["GP9", "GP8", "GP7", "GP4", "GP5", "GP6"] 
+  },
+  "encoder": {
+    "enabled": true,
+    "rotary": [
+        {"pin_a": "GP10", "pin_b": "GP11", "resolution": 2}
+    ]
+  },
+  "split": {
+    "enabled": true,
+    "encoder": {
+        "right": {
+            "rotary": [
+                {"pin_a": "GP10", "pin_b": "GP11", "resolution": 2}
+            ]
+        }
+    }
   },
   "layouts": {
       "LAYOUT": {

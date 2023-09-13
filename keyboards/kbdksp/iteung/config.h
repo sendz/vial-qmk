@@ -18,13 +18,16 @@
 
 // #include "config_common.h"
 
+#define OLED_DISPLAY_128X32
+#define I2C1_SCL_PIN        GP3
+#define I2C1_SDA_PIN        GP2
+#define I2C_DRIVER I2CD0
+#define OLED_BRIGHTNESS 128
+#define OLED_FONT_H "keyboards/kbdksp/iteung/lib/glcdfont.c"
+
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { GP29, GP28, GP15, GP26, GP27 }
-#define MATRIX_COL_PINS { GP9, GP8, GP7, GP4, GP5, GP6 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -35,16 +38,13 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* encoder support */
-#define ENCODERS_PAD_A { GP10 } // 4 + 4
-#define ENCODERS_PAD_B { GP11 } // 4 + 4
-#define ENCODER_RESOLUTION 2
-
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
 #define MASTER_LEFT
+
+#include "config_rp2040.h"
+
+#define OLED_TIMEOUT 0
+#define CUSTOM_OLED_TIMEOUT 10000
