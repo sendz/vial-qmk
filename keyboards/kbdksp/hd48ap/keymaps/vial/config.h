@@ -8,7 +8,14 @@
     KC_VOLU, KC_VOLD, \
     KC_TRNS, KC_TRNS, \
     KC_TRNS, KC_TRNS, \
-    KC_TRNS, KC_TRNS, \
 }
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+
+/* encoder support */
+#define ENCODERS_PAD_A { D4 } // 4 + 4
+#define ENCODERS_PAD_B { C6 } // 4 + 4
+#define ENCODER_RESOLUTION 2
+
+#define OLED_FONT_H "fonts/glcdfont.c"
+#define OLED_DISPLAY_128X64

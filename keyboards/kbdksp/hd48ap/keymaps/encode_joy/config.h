@@ -1,0 +1,29 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+
+#pragma once
+
+#define VIAL_KEYBOARD_UID {0x66, 0x8F, 0x22, 0x2F, 0x54, 0xB4, 0xD9, 0x99}
+
+#define VIAL_ENCODER_DEFAULT { \
+    KC_VOLU, KC_VOLD, \
+    KC_TRNS, KC_TRNS, \
+}
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+
+/* encoder support */
+#define ENCODERS_PAD_A { D4 } // 4 + 4
+#define ENCODERS_PAD_B { C6 } // 4 + 4
+#define ENCODER_RESOLUTION 2
+
+#ifdef POINTING_DEVICE_ENABLE
+    #define POINTING_DEVICE_INVERT_X
+    #define POINTING_DEVICE_INVERT_Y
+    #define ANALOG_JOYSTICK_X_AXIS_PIN B4
+    #define ANALOG_JOYSTICK_Y_AXIS_PIN B5
+    #define ANALOG_JOYSTICK_AXIS_MIN 10
+    #define ANALOG_JOYSTICK_AXIS_MAX 1023
+    #define ANALOG_JOYSTICK_SPEED_REGULATOR 30
+    #define ANALOG_JOYSTICK_READ_INTERVAL 10
+    #define ANALOG_JOYSTICK_SPEED_MAX 2
+#endif
