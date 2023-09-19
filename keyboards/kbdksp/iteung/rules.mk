@@ -12,6 +12,9 @@ MOUSEKEY_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
+RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+WS2812_DRIVER = vendor
+
 SRC += oled/oled_handler.c process_record.c
 
 DEBUG_MATRIX_SCAN_RATE_ENABLE = yes

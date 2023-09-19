@@ -2,6 +2,7 @@
   "name": "Iteung",
   "vendorId": "0x7370",
   "productId": "0x0287",
+  "lighting": "qmk_rgblight",
   "matrix": { "rows": 10, "cols": 6 },
   "layouts": {
       "keymap": [
