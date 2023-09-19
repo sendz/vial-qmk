@@ -42,7 +42,7 @@
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
-#define USB_VBUS_PIN GP12
+#define VBUS_SENSE GP12
 // #define MASTER_LEFT
 
 #include "config_rp2040.h"
