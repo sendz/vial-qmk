@@ -16,22 +16,18 @@
 
 #pragma once
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x7370
 #define PRODUCT_ID      0x3438
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Keyboard Kasep
-#define PRODUCT         HD48AP
 
 /* key matrix size */
 #define MATRIX_ROWS 8
-#define MATRIX_COLS 7
+#define MATRIX_COLS 6
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D3, D2, D7, E6, B2, B6, B5, B4 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, D5 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 #define UNUSED_PINS
 
 

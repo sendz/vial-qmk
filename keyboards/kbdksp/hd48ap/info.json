@@ -1,6 +1,8 @@
 {
     "keyboard_name": "HD48AP",
     "url": "",
+    "manufacturer": "Keyboard Kasep",
+    "product": "HD48AP",
     "maintainer": "Keyboard Kasep",
     "layouts": {
         "LAYOUT_ortho": {
