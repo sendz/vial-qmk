@@ -16,15 +16,6 @@
 
  #pragma once
 
- #include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7370
-#define PRODUCT_ID      0x4341
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Keyboard Kasep
-#define PRODUCT         Cacah
-
 /* key matrix size */
 
 #define MATRIX_ROWS 5
@@ -32,9 +23,6 @@
 
 /* Keyboard Matrix Assignments */
 // clang-format off
-
-#define MATRIX_ROW_PINS { GP2, GP3, GP4, GP8, GP9 }
-#define MATRIX_COL_PINS { GP18, GP19, GP0, GP1 }
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE 5
@@ -44,12 +32,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* encoder support */
-#define ENCODERS_PAD_A { GP16 } // 4 + 4
-#define ENCODERS_PAD_B { GP17 } // 4 + 4
-#define ENCODER_RESOLUTION 4
