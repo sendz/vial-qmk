@@ -34,7 +34,7 @@
     KC_TRNS, KC_TRNS \
 }
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
 /* ---------------------------
  * Common Spit Configuration
