@@ -10,7 +10,7 @@ EXTRAKEY_ENABLE = yes    # Audio control and System control
 MOUSEKEY_ENABLE = yes
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
 
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 WS2812_DRIVER = vendor
@@ -22,3 +22,5 @@ WPM_ENABLE = yes
 CONSOLE_ENABLE = yes
 SRC +=  oled/rp2040/master/oled_master_handler.c \
 				oled/rp2040/slave/oled_slave_handler.c
+# POINTING_DEVICE_ENABLE = yes
+# POINTING_DEVICE_DRIVER = analog_joystick

@@ -1,6 +1,4 @@
-/* Copyright 2020 Josef Adamcik
- * Modification for VIA support and RGB underglow by Jens Bonk-Wiltfang
- * Modification for Vial support by Drew Petersen
+/* Copyright 2023 sendz
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,3 +66,5 @@
  */
 #define ENABLE_COMPILE_KEYCODE
 
+#define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
+#define VIAL_UNLOCK_COMBO_COLS { 0, 3 }

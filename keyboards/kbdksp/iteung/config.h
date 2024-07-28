@@ -26,7 +26,7 @@
 #define OLED_FONT_H "keyboards/kbdksp/iteung/fonts/glcdfont.c"
 
 /* key matrix size */
-#define MATRIX_ROWS 10
+#define MATRIX_ROWS 12
 #define MATRIX_COLS 6
 
 /* Set 0 if debouncing isn't needed */
