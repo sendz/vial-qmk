@@ -24,6 +24,7 @@
 #define I2C_DRIVER I2CD1
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/kbdksp/iteung/fonts/glcdfont.c"
+// #define MASTER_RIGHT
 
 /* key matrix size */
 #define MATRIX_ROWS 10
