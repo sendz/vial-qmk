@@ -22,5 +22,5 @@ WPM_ENABLE = yes
 CONSOLE_ENABLE = yes
 SRC +=  oled/rp2040/master/oled_master_handler.c \
 				oled/rp2040/slave/oled_slave_handler.c
-# POINTING_DEVICE_ENABLE = yes
-# POINTING_DEVICE_DRIVER = analog_joystick
+POINTING_DEVICE_ENABLE = yes
+POINTING_DEVICE_DRIVER = analog_joystick
