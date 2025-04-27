@@ -12,3 +12,7 @@ SRC +=  oled/rp2040/master/oled_master_handler.c \
 # POINTING_DEVICE_ENABLE = yes
 # POINTING_DEVICE_DRIVER = analog_joystick
 # ANALOG_DRIVER_REQUIRED = yes
+
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = ws2812
+WS2812_DRIVER = vendor
