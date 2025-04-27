@@ -1,6 +1,6 @@
 {
     "manufacturer": "KBDKSP",
-    "keyboard_name": "kbdksp/geulisv1",
+    "keyboard_name": "Geulis",
     "maintainer": "sendz",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -46,30 +46,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
-    "rgblight": {
-        "led_count": 16,
-        "max_brightness": 185,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        },
-        "split": true,
-        "split_count": [6,6]
-    },
-    "ws2812": {
-        "driver": "vendor",
-        "pin": "GP13"
+        "pid": "0x0287",
+        "vid": "0x7370"
     },
     "split": {
         "enabled": true
