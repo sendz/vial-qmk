@@ -41,8 +41,9 @@
     "encoder": {
         "right": {
             "rotary": [
-                {"pin_a": "GP10", "pin_b": "GP11", "resolution": 1}
-            ]
+                {"pin_a": "GP10", "pin_b": "GP11"}
+            ],
+            "resolution": 1
         }
     }
   },
