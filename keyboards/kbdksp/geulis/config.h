@@ -1,4 +1,4 @@
- /* Copyright 2022 sendz
+ /* Copyright 2024 sendz
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -13,44 +13,20 @@
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
+#include "config_rp2040.h"
 
 #pragma once
-
-// #include "config_common.h"
-
 #define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP3
 #define I2C1_SDA_PIN        GP2
 #define I2C_DRIVER I2CD1
-#define OLED_BRIGHTNESS 128
-#define OLED_FONT_H "keyboards/kbdksp/iteung/fonts/glcdfont.c"
-// #define MASTER_RIGHT
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+#define OLED_FONT_H "keyboards/kbdksp/geulisv/fonts/glcdfont.c"
 
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
 #define VBUS_SENSE GP12
-// #define MASTER_LEFT
-
-#include "config_rp2040.h"
-
-#define OLED_TIMEOUT 0
-#define CUSTOM_OLED_TIMEOUT 10000
-
 
 #ifdef RGBLIGHT_ENABLE
   #define WS2812_DI_PIN GP13
@@ -66,10 +42,8 @@
 	#define RGBLIGHT_EFFECT_RGB_TEST
 	#define RGBLIGHT_EFFECT_ALTERNATING
 	#define RGBLIGHT_EFFECT_TWINKLE
-
-  #define DIODE_DIRECTION COL2ROW
-
-	#define RGBLED_NUM 16
+  
+  #define RGBLIGHT_LED_COUNT 16
 
   #define RGBLED_SPLIT { 8, 8 }
 

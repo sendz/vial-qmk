@@ -13,8 +13,8 @@ void render_master_oled(void) {
 
     oled_write_ln_P(PSTR(""), false);
 
-    oled_write_P(PSTR(" ITE "), false);
-    oled_write_P(PSTR(" UNG "), false);
+    oled_write_P(PSTR(" GEU "), false);
+    oled_write_P(PSTR(" LIS "), false);
 
     oled_write_ln_P(PSTR(""), false);
     oled_write_P(PSTR("_____"), false);
