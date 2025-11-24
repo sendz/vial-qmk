@@ -20,7 +20,7 @@
 #define I2C1_SCL_PIN        GP3
 #define I2C1_SDA_PIN        GP2
 #define I2C_DRIVER I2CD1
-#define OLED_FONT_H "keyboards/kbdksp/geulisv/fonts/glcdfont.c"
+#define OLED_FONT_H "keyboards/kbdksp/geulis/fonts/glcdfont.c"
 
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
