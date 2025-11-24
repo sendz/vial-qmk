@@ -28,6 +28,9 @@
 
 #define VBUS_SENSE GP12
 
+#define OLED_TIMEOUT 180000
+#define CUSTOM_OLED_TIMEOUT 180000
+
 #ifdef RGBLIGHT_ENABLE
   #define WS2812_DI_PIN GP13
   #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
