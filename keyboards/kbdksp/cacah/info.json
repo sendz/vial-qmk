@@ -32,7 +32,7 @@
       {
         "pin_a": "GP16",
         "pin_b": "GP17",
-        "resolution": 4
+        "resolution": 1
       }
     ]
   },
