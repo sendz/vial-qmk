@@ -1,0 +1,2 @@
+POINTING_DEVICE_DRIVER = analog_joystick
+JOYSTICK_DRIVER = analog

@@ -1,0 +1,18 @@
+// Copyright 2025 Sendy (@sendz)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
+#ifdef POINTING_DEVICE_ENABLE
+    #define ANALOG_JOYSTICK_X_AXIS_PIN GP28
+    #define ANALOG_JOYSTICK_Y_AXIS_PIN GP26
+    #define ANALOG_JOYSTICK_AXIS_MIN 512
+    #define ANALOG_JOYSTICK_AXIS_MAX 1023
+    #define ANALOG_JOYSTICK_SPEED_REGULATOR 40
+    #define ANALOG_JOYSTICK_READ_INTERVAL 10
+    #define ANALOG_JOYSTICK_SPEED_MAX 4
+    #define ANALOG_JOYSTICK_CUTOFF
+    #define SPLIT_POINTING_ENABLE
+    #define POINTING_DEVICE_RIGHT
+    #define POINTING_DEVICE_INVERT_X
+#endif
