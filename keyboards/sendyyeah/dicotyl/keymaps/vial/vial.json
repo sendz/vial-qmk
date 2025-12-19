@@ -4,7 +4,7 @@
     "productId": "0x5359",
     "lighting": "none",
     "matrix": {
-        "rows": 9,
+        "rows": 10,
         "cols": 6
     },
     "layouts": {
