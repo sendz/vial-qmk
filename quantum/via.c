@@ -54,7 +54,8 @@
 #include "dynamic_keymap.h"
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#include "via_ensure_keycode.h"
+#include "quantum/nvm/eeprom/nvm_eeprom_eeconfig_internal.h"
+#include "quantum/nvm/eeprom/nvm_eeprom_via_internal.h"
 
 #ifdef VIAL_ENABLE
 #include "vial.h"
@@ -78,7 +79,6 @@ void via_qmk_rgblight_get_value(uint8_t *data);
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
 void via_qmk_rgb_matrix_set_value(uint8_t *data);
 void via_qmk_rgb_matrix_get_value(uint8_t *data);
-void eeconfig_update_rgb_matrix(void);
 #endif
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
@@ -183,38 +183,13 @@ void via_set_layout_options(uint32_t value) {
 bool process_record_via(uint16_t keycode, keyrecord_t *record) {
     // Handle macros
     if (record->event.pressed) {
-        if (keycode >= MACRO00 && keycode <= MACRO00 + DYNAMIC_KEYMAP_MACRO_COUNT - 1) {
-            uint8_t id = keycode - MACRO00;
+        if (keycode >= QK_MACRO && keycode <= QK_MACRO_MAX) {
+            uint8_t id = keycode - QK_MACRO;
             dynamic_keymap_macro_send(id);
             return false;
         }
     }
 
-    // TODO: ideally this would be generalized and refactored into
-    // QMK core as advanced keycodes, until then, the simple case
-    // can be available here to keyboards using VIA
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
     return true;
 }
 
@@ -387,7 +362,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             vialrgb_save(data, length);
 #endif
 #if defined(VIA_QMK_RGB_MATRIX_ENABLE)
-            eeconfig_update_rgb_matrix();
+            eeconfig_force_flush_rgb_matrix();
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);

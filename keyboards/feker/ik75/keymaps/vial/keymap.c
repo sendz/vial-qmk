@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______, _______, QK_RBT,  _______, _______, _______, _______, _______, KC_PSCR, _______, _______, _______,          RGB_HUI,
                 _______, _______, KC_SCRL, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          RGB_SAI,
                 _______,          _______, _______, _______, _______, _______, KC_NUM,  _______, _______, _______, _______,          _______, RGB_VAI, RGB_SAD,
-                _______, GUI_TOG, _______,                            _______,                   _______, _______,          _______, _______, RGB_VAD, _______
+                _______, GU_TOGG, _______,                            _______,                   _______, _______,          _______, _______, RGB_VAD, _______
             ),
 };
 
@@ -134,7 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(46, 0, 0, 0);
     rgb_matrix_set_color(104, 0, 0, 0);
 
@@ -156,6 +156,7 @@ void rgb_matrix_indicators_user(void) {
         }
         rgb_matrix_set_color(104, red, green, blue);
     }
+	return false;
 }
 
 #ifdef ENCODER_MAP_ENABLE

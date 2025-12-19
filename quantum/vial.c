@@ -58,6 +58,10 @@ static void reload_combo(void);
 static void reload_key_override(void);
 #endif
 
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+static void reload_alt_repeat_key(void);
+#endif
+
 void vial_init(void) {
 #ifdef VIAL_TAP_DANCE_ENABLE
     reload_tap_dance();
@@ -67,6 +71,9 @@ void vial_init(void) {
 #endif
 #ifdef VIAL_KEY_OVERRIDE_ENABLE
     reload_key_override();
+#endif
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+    reload_alt_repeat_key();
 #endif
 }
 
@@ -224,6 +231,17 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 msg[0] = VIAL_TAP_DANCE_ENTRIES;
                 msg[1] = VIAL_COMBO_ENTRIES;
                 msg[2] = VIAL_KEY_OVERRIDE_ENTRIES;
+                msg[3] = VIAL_ALT_REPEAT_KEY_ENTRIES;
+
+                // The last byte of msg indicates optionally supported features.
+                msg[length - 1] = (0
+#ifdef CAPS_WORD_ENABLE
+                        | (1 << 0)  // Bit 0: Caps Word.
+#endif
+#ifdef LAYER_LOCK_ENABLE
+                        | (1 << 1)  // Bit 1: Layer Lock.
+#endif
+                        );
                 break;
             }
 #ifdef VIAL_TAP_DANCE_ENABLE
@@ -283,6 +301,25 @@ void vial_handle_cmd(uint8_t *msg, uint8_t length) {
                 break;
             }
 #endif
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+            case dynamic_vial_alt_repeat_key_get: {
+                uint8_t idx = msg[3];
+                vial_alt_repeat_key_entry_t entry = { 0 };
+                msg[0] = dynamic_keymap_get_alt_repeat_key(idx, &entry);
+                memcpy(&msg[1], &entry, sizeof(entry));
+                break;
+            }
+            case dynamic_vial_alt_repeat_key_set: {
+                uint8_t idx = msg[3];
+                vial_alt_repeat_key_entry_t entry;
+                memcpy(&entry, &msg[4], sizeof(entry));
+                entry.keycode = vial_keycode_firewall(entry.keycode);
+                entry.alt_keycode = vial_keycode_firewall(entry.alt_keycode);
+                msg[0] = dynamic_keymap_set_alt_repeat_key(idx, &entry);
+                reload_alt_repeat_key();
+                break;
+            }
+#endif
             }
 
             break;
@@ -299,6 +336,7 @@ void vial_keycode_down(uint16_t keycode) {
         register_code16(keycode);
     } else {
         action_exec((keyevent_t){
+            .type = KEY_EVENT,
             .key = (keypos_t){.row = VIAL_MATRIX_MAGIC, .col = VIAL_MATRIX_MAGIC}, .pressed = 1, .time = (timer_read() | 1) /* time should not be 0 */
         });
     }
@@ -311,6 +349,7 @@ void vial_keycode_up(uint16_t keycode) {
         unregister_code16(keycode);
     } else {
         action_exec((keyevent_t){
+            .type = KEY_EVENT,
             .key = (keypos_t){.row = VIAL_MATRIX_MAGIC, .col = VIAL_MATRIX_MAGIC}, .pressed = 0, .time = (timer_read() | 1) /* time should not be 0 */
         });
     }
@@ -339,7 +378,7 @@ enum {
 static uint8_t dance_state[VIAL_TAP_DANCE_ENTRIES];
 static vial_tap_dance_entry_t td_entry;
 
-static uint8_t dance_step(qk_tap_dance_state_t *state) {
+static uint8_t dance_step(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_TAP;
         else return SINGLE_HOLD;
@@ -351,7 +390,7 @@ static uint8_t dance_step(qk_tap_dance_state_t *state) {
     return MORE_TAPS;
 }
 
-static void on_dance(qk_tap_dance_state_t *state, void *user_data) {
+static void on_dance(tap_dance_state_t *state, void *user_data) {
     uint8_t index = (uintptr_t)user_data;
     if (dynamic_keymap_get_tap_dance(index, &td_entry) != 0)
         return;
@@ -367,7 +406,7 @@ static void on_dance(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-static void on_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+static void on_dance_finished(tap_dance_state_t *state, void *user_data) {
     uint8_t index = (uintptr_t)user_data;
     if (dynamic_keymap_get_tap_dance(index, &td_entry) != 0)
         return;
@@ -420,7 +459,7 @@ static void on_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+static void on_dance_reset(tap_dance_state_t *state, void *user_data) {
     uint8_t index = (uintptr_t)user_data;
     if (dynamic_keymap_get_tap_dance(index, &td_entry) != 0)
         return;
@@ -473,7 +512,7 @@ static void on_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[VIAL_TAP_DANCE_ENTRIES] = { };
+tap_dance_action_t tap_dance_actions[VIAL_TAP_DANCE_ENTRIES] = { };
 
 /* Load timings from eeprom into custom_tapping_term */
 static void reload_tap_dance(void) {
@@ -501,6 +540,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM;
 #endif
 }
+
+uint16_t tap_dance_count(void) {
+    return VIAL_TAP_DANCE_ENTRIES;
+}
+
+tap_dance_action_t* tap_dance_get(uint16_t tap_dance_idx) {
+    if (tap_dance_idx >= VIAL_TAP_DANCE_ENTRIES)
+        return NULL;
+    return &tap_dance_actions[tap_dance_idx];
+}
 #endif
 
 #ifdef VIAL_COMBO_ENABLE
@@ -527,7 +576,7 @@ static void reload_combo(void) {
 #endif
 
 #ifdef VIAL_TAP_DANCE_ENABLE
-void process_tap_dance_action_on_dance_finished(qk_tap_dance_action_t *action);
+void process_tap_dance_action_on_dance_finished(tap_dance_action_t *action);
 #endif
 
 bool process_record_vial(uint16_t keycode, keyrecord_t *record) {
@@ -538,7 +587,7 @@ bool process_record_vial(uint16_t keycode, keyrecord_t *record) {
         if (dynamic_keymap_get_tap_dance(idx, &td_entry) != 0)
             return true;
 
-        qk_tap_dance_action_t *action = &tap_dance_actions[idx];
+        tap_dance_action_t *action = &tap_dance_actions[idx];
 
         /* only care about 2 possibilities here
            - tap and hold set, everything else unset: process first release early (count == 1)
@@ -558,9 +607,7 @@ bool process_record_vial(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef VIAL_KEY_OVERRIDE_ENABLE
 static bool vial_key_override_disabled = 0;
-static key_override_t overrides[VIAL_KEY_OVERRIDE_ENTRIES] = { 0 };
-static key_override_t *override_ptrs[VIAL_KEY_OVERRIDE_ENTRIES + 1] = { 0 };
-const key_override_t **key_overrides = (const key_override_t**)override_ptrs;
+static key_override_t vial_key_overrides[VIAL_KEY_OVERRIDE_ENTRIES] = { 0 };
 
 static int vial_get_key_override(uint8_t index, key_override_t *out) {
     vial_key_override_entry_t entry;
@@ -594,9 +641,137 @@ static int vial_get_key_override(uint8_t index, key_override_t *out) {
 }
 
 static void reload_key_override(void) {
-    for (size_t i = 0; i < VIAL_KEY_OVERRIDE_ENTRIES; ++i) {
-        override_ptrs[i] = &overrides[i];
-        vial_get_key_override(i, &overrides[i]);
+    for (size_t i = 0; i < VIAL_KEY_OVERRIDE_ENTRIES; ++i)
+        vial_get_key_override(i, &vial_key_overrides[i]);
+}
+
+uint16_t key_override_count(void) {
+    return VIAL_KEY_OVERRIDE_ENTRIES;
+}
+
+const key_override_t* key_override_get(uint16_t key_override_idx) {
+    if (key_override_idx >= VIAL_KEY_OVERRIDE_ENTRIES)
+        return NULL;
+    return &vial_key_overrides[key_override_idx];
+}
+#endif
+
+#ifdef VIAL_ALT_REPEAT_KEY_ENABLE
+typedef struct {
+    uint16_t keycode;
+    uint16_t alt_keycode;
+    uint8_t required_mods;
+    uint8_t alt_required_mods;
+    uint8_t allowed_mods;
+    uint8_t options;
+} alt_repeat_key_t;
+
+static alt_repeat_key_t vial_alt_repeat_key[VIAL_ALT_REPEAT_KEY_ENTRIES] = { 0 };
+
+static uint8_t unpack_mods5(uint8_t mods5) {
+  return (mods5 & 0x10) != 0 ? (mods5 << 4) : mods5;
+}
+
+static uint16_t alt_repeat_key_normalize_keycode(uint16_t keycode, uint8_t *mods) {
+    switch (keycode) {
+        case QK_MODS ... QK_MODS_MAX: // Unpack modifier + basic key.
+            *mods |= unpack_mods5(QK_MODS_GET_MODS(keycode));
+            keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
+            break;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+            break;
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+            break;
     }
+    return keycode;
+}
+
+static int vial_get_alt_repeat_key(uint8_t index, alt_repeat_key_t *out) {
+    vial_alt_repeat_key_entry_t entry;
+    int ret;
+    if ((ret = dynamic_keymap_get_alt_repeat_key(index, &entry)) != 0) {
+        return ret;
+    }
+
+    memset(out, 0, sizeof(*out));
+    out->keycode = alt_repeat_key_normalize_keycode(entry.keycode, &out->required_mods);
+    out->alt_keycode = alt_repeat_key_normalize_keycode(entry.alt_keycode, &out->alt_required_mods);
+    out->allowed_mods = entry.allowed_mods;
+    out->options = entry.options;
+
+    return 0;
+}
+
+static void reload_alt_repeat_key(void) {
+    for (size_t i = 0; i < VIAL_ALT_REPEAT_KEY_ENTRIES; ++i) {
+        vial_get_alt_repeat_key(i, &vial_alt_repeat_key[i]);
+    }
+}
+
+uint16_t alt_repeat_key_count(void) {
+    return VIAL_ALT_REPEAT_KEY_ENTRIES;
+}
+
+static bool alt_repeat_key_mods_match(uint8_t mods, uint8_t required_mods, uint8_t allowed_mods, uint8_t options) {
+    allowed_mods |= required_mods; // Required mods, if any, are allowed.
+
+    // If ignoring mod handedness, bitwise-or low (lhs) 4 bits with upper (rhs) 4 bits.
+    if ((options & vial_arep_option_ignore_mod_handedness)) {
+        mods = (mods & 0xf) | (mods >> 4);
+        required_mods = (required_mods & 0xf) | (required_mods >> 4);
+        allowed_mods = (allowed_mods & 0xf) | (allowed_mods >> 4);
+    }
+
+    // Check that all required mods are set and all disallowed mods are unset.
+    return (mods & required_mods) == required_mods && (mods & ~allowed_mods) == 0;
+}
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    uint16_t alt_keycode = KC_TRNS;
+    int8_t best_fit = -1;
+
+    keycode = alt_repeat_key_normalize_keycode(keycode, &mods);
+
+    for (size_t i = 0; i < VIAL_ALT_REPEAT_KEY_ENTRIES; ++i) {
+        const alt_repeat_key_t* entry = &vial_alt_repeat_key[i];
+        const uint8_t options = entry->options;
+        if (!(options & vial_arep_enabled)) { // Skip disabled entries.
+            continue;
+        }
+
+        // Search for an entry with matching keycode and mods. If there is more
+        // than one match, the entry with the most mods wins.
+        if (entry->keycode == keycode &&
+                alt_repeat_key_mods_match(mods, entry->required_mods, entry->allowed_mods, options)) {
+            const int8_t fit = bitpop(entry->required_mods);
+            if (fit > best_fit) {
+                alt_keycode = (entry->alt_required_mods << 8) | entry->alt_keycode;
+                best_fit = fit;
+            }
+        }
+
+        // If the entry is bidirectional, check for match with the alt keycode.
+        if (entry->alt_keycode == keycode &&
+                (options & vial_arep_option_bidirectional) != 0 &&
+                alt_repeat_key_mods_match(mods, entry->alt_required_mods, entry->allowed_mods, options)) {
+            const int8_t fit = bitpop(entry->alt_required_mods);
+            if (fit > best_fit) {
+                alt_keycode = (entry->required_mods << 8) | entry->keycode;
+                best_fit = fit;
+            }
+        }
+
+        // If this entry is the default alt key and allowed mods are satisfied,
+        // use it if no there is no other match.
+        if ((options & vial_arep_option_default_to_this_alt_key) != 0 &&
+                best_fit == -1 && alt_keycode == KC_TRNS &&
+                alt_repeat_key_mods_match(mods, 0, entry->allowed_mods, options)) {
+            alt_keycode = (entry->alt_required_mods << 8) | entry->alt_keycode;
+        }
+    }
+
+    return alt_keycode;
 }
 #endif
