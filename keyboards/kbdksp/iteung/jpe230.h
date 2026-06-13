@@ -11,6 +11,16 @@ bool ctrl_pressed;
 bool gui_pressed;
 
 /* ---------------------------
+ * Eye gaze target (right-half OLED)
+ * ---------------------------
+ * Range -100..100. On the master these are computed from the last keypress;
+ * they are then pushed to the slave over RPC_ID_KB_EYE_SYNC. The slave eases
+ * the rendered pupil toward this target.
+ */
+extern int8_t g_eye_tx;
+extern int8_t g_eye_ty;
+
+/* ---------------------------
  * Custom OLED Fncs Prototypes
  * ---------------------------
  */

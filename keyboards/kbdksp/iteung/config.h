@@ -27,6 +27,32 @@
 #define OLED_FONT_H "keyboards/kbdksp/iteung/fonts/glcdfont.c"
 // #define MASTER_RIGHT
 
+/* ---------------------------
+ * Right-half (slave) OLED: eye + WPM + RP2040 + temperature
+ * ---------------------------
+ */
+
+// Custom split transaction used to push the eye gaze target master -> slave.
+#define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_EYE_SYNC
+
+// Rotation of the right-half OLED. The left half uses OLED_ROTATION_270.
+// If the right screen comes out upside-down, flip this to OLED_ROTATION_90
+// (and, if needed, toggle EYE_INVERT_X / EYE_INVERT_Y below).
+#define OLED_SLAVE_ROTATION OLED_ROTATION_270
+#define EYE_INVERT_X 0
+#define EYE_INVERT_Y 0
+
+// Eye tuning.
+// EYE_INERTIA: how fast the pupil chases the target each frame, 0.0-1.0.
+//   Higher = snappier / less inertia, lower = slower / more lag.
+#define EYE_INERTIA 0.35f
+#define EYE_FRAME_MS 50      // eye animation/update interval (ms) -> ~20 fps
+#define EYE_RETURN_MS 3000   // return pupil to center after this idle time (ms)
+#define EYE_MAX_OFFSET 7     // max pupil travel from center (px)
+#define EYE_BLINK_MIN_MS 3000
+#define EYE_BLINK_MAX_MS 5000
+#define EYE_BLINK_DURATION_MS 120
+
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
