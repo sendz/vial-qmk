@@ -14,9 +14,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "D4", "pin_b": "C6"}
-        ],
-        "resolution": 1
+            { "pin_a": "D4", "pin_b": "C6", "resolution": 1 }
+        ]
     },
     "build": {
         "lto": true
@@ -25,6 +24,7 @@
         "extrakey": true,
         "oled": true,
         "nkro": true,
+        "encoder": true,
         "wpm": true
     },
     "matrix_pins": {

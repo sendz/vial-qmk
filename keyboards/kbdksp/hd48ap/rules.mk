@@ -1,3 +1,3 @@
-# CONVERT_TO = rp2040_ce
+CONVERT_TO = rp2040_ce
 
 OLED_DRIVER = ssd1306
