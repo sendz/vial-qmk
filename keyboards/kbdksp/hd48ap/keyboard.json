@@ -14,7 +14,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "D4", "pin_b": "C6", "resolution": 1 }
+            { "pin_a": "D4", "pin_b": "C6", "resolution": 4 }
         ]
     },
     "build": {
