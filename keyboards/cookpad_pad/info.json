@@ -1,0 +1,61 @@
+{
+  "keyboard_name": "Cookpad Pad",
+  "manufacturer": "Cookpad",
+  "lighting": "none",
+  "matrix": {
+      "rows": 2,
+      "cols": 3
+  },
+  "macros": [
+    [
+      {
+        "action": "tap",
+        "keycodes": ["KC_LCTL", "KC_LGUI", "KC_LEFT"]
+      }
+    ],
+    [
+      {
+        "action": "tap",
+        "keycodes": ["KC_LCTL", "KC_LGUI", "KC_RIGHT"]
+      }
+    ]
+  ],
+  "layout": "LAYOUT",
+  "layers": [
+    [
+      "LCTL(KC_C)"  , "LCTL(KC_V)"  , "SGUI(KC_S)",
+      "QK_MACRO_0"  , "QK_MACRO_1"  , "TG(1)"
+    ],
+    [
+      "KC_MPRV", "KC_MPLY", "KC_MNXT",
+      "KC_VOLD", "KC_VOLU" , "TG(0)"
+    ]
+  ],
+  "layouts": {
+      "LAYOUT": {
+        "layout": [
+          {"matrix": [0, 0], "x": 0, "y": 0},
+          {"matrix": [0, 1], "x": 1, "y": 0},
+          {"matrix": [0, 2], "x": 2, "y": 0},
+          {"matrix": [1, 0], "x": 0, "y": 1},
+          {"matrix": [1, 0], "x": 1, "y": 1},
+          {"matrix": [1, 0], "x": 2, "y": 1}
+        ]
+      } 
+  },
+  "matrix_pins": {
+    "cols": ["F6", "F5", "F4"],
+    "rows": ["F7", "B1"]
+  },
+  "ws2812": {
+      "pin": "D3"
+  },
+  "diode_direction": "COL2ROW",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  }
+}
